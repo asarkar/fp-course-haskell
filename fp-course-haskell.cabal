@@ -21,6 +21,7 @@ library
   exposed-modules:
       Core
       ExactlyOne
+      Functor
       List
       Optional
       Validation
@@ -41,6 +42,7 @@ test-suite fp-course-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      FunctorSpec
       ListSpec
       OptionalSpec
       Property
