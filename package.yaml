@@ -48,4 +48,4 @@ tests:
     defaults: hspec/hspec@main
     dependencies:
     - fp-course-haskell
-    # - QuickCheck
+    - QuickCheck
