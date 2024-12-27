@@ -5,9 +5,13 @@
 module Functor where
 
 import Core
-import ExactlyOne
-import List
-import Optional
+import Data.Function ((&))
+import ExactlyOne (ExactlyOne (..))
+import qualified ExactlyOne as EO
+import List (List (..))
+import qualified List as L
+import Optional (Optional (..))
+import qualified Optional as O
 import qualified Prelude as P (fmap)
 
 -- | All instances of the `Functor` type-class must satisfy two laws. These laws
@@ -35,7 +39,7 @@ infixl 4 <$>
 -- ExactlyOne 3
 instance Functor ExactlyOne where
   (<$>) :: (a -> b) -> ExactlyOne a -> ExactlyOne b
-  (<$>) = mapExactlyOne
+  (<$>) = EO.mapExactlyOne
 
 -- | Maps a function on the List functor.
 --
@@ -46,7 +50,7 @@ instance Functor ExactlyOne where
 -- [2,3,4]
 instance Functor List where
   (<$>) :: (a -> b) -> List a -> List b
-  (<$>) = map
+  (<$>) = L.map
 
 -- | Maps a function on the Optional functor.
 --
@@ -57,7 +61,7 @@ instance Functor List where
 -- Full 3
 instance Functor Optional where
   (<$>) :: (a -> b) -> Optional a -> Optional b
-  (<$>) = mapOptional
+  (<$>) = O.mapOptional
 
 -- | Maps a function on the reader ((->) t) functor.
 --
@@ -98,8 +102,8 @@ instance Functor ((->) t) where
 -- >>> Empty ?? 2
 -- Empty
 (??) :: (Functor k) => k (a -> b) -> a -> k b
--- ($) :: (a -> b) -> a -> b
-(??) ff a = flip ($) a <$> ff
+-- (&) :: a -> (a -> b) -> b
+(??) = flip ((<$>) . (&))
 
 infixl 1 ??
 
@@ -117,7 +121,7 @@ infixl 1 ??
 -- >>> void (+10) 5
 -- ()
 void :: (Functor k) => k a -> k ()
-void = (<$>) (const ())
+void = (<$) ()
 
 -----------------------
 -- SUPPORT LIBRARIES --

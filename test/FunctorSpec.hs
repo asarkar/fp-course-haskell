@@ -1,6 +1,6 @@
 module FunctorSpec (spec) where
 
-import ExactlyOne
+import ExactlyOne (ExactlyOne (..))
 import qualified Functor as F
 import List (List (..))
 import Optional (Optional (..))

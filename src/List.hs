@@ -19,7 +19,8 @@ import qualified Control.Applicative as A
 import qualified Control.Monad as M
 import Core
 import qualified Numeric as N
-import Optional
+import Optional (Optional (..))
+import qualified Optional as O
 import qualified System.Environment as E
 import qualified Prelude as P
 
@@ -207,7 +208,8 @@ flattenAgain = flatten
 -- Empty
 seqOptional :: List (Optional a) -> Optional (List a)
 seqOptional Nil = Full Nil
-seqOptional (x :. xs) = (:.) P.<$> x P.<*> seqOptional xs
+-- (:.) P.<$> x P.<*> seqOptional xs
+seqOptional (x :. xs) = O.twiceOptional (:.) x (seqOptional xs)
 
 -- | Find the first element in the list matching the predicate.
 --
@@ -577,7 +579,7 @@ read ::
   Chars ->
   Optional a
 read =
-  mapOptional fst . reads
+  O.mapOptional fst . reads
 
 readHexs ::
   (Eq a, Num a) =>
@@ -593,7 +595,7 @@ readHex ::
   Chars ->
   Optional a
 readHex =
-  mapOptional fst . readHexs
+  O.mapOptional fst . readHexs
 
 readFloats ::
   (RealFrac a) =>
@@ -609,7 +611,7 @@ readFloat ::
   Chars ->
   Optional a
 readFloat =
-  mapOptional fst . readFloats
+  O.mapOptional fst . readFloats
 
 instance (a P.~ Char) => IsString (List a) where
   -- Per https://hackage.haskell.org/package/base-4.14.1.0/docs/src/Data.String.html#line-43
