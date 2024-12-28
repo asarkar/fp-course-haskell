@@ -19,6 +19,7 @@ extra-source-files:
 
 library
   exposed-modules:
+      Applicative
       Core
       ExactlyOne
       Functor
@@ -42,6 +43,7 @@ test-suite fp-course-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      ApplicativeSpec
       FunctorSpec
       ListSpec
       OptionalSpec
