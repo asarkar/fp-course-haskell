@@ -27,6 +27,7 @@ library
       List
       Monad
       Optional
+      State
       Validation
   other-modules:
       Paths_fp_course_haskell
@@ -39,6 +40,7 @@ library
   ghc-options: -Werror -Weverything -Wno-missing-import-lists -Wno-missed-specializations -Wno-all-missed-specializations -Wno-missing-local-signatures -Wno-monomorphism-restriction -Wno-missing-safe-haskell-mode -Wno-safe -Wno-unsafe -Wno-implicit-prelude -Wno-prepositive-qualified-module -Wno-missing-kind-signatures -Wno-unused-top-binds -Wno-missing-export-lists -Wno-missing-role-annotations
   build-depends:
       base >=4.7 && <5
+    , containers
   default-language: Haskell2010
 
 test-suite fp-course-test
@@ -52,6 +54,7 @@ test-suite fp-course-test
       OptionalSpec
       Property
       SpecHook
+      StateSpec
       ValidationSpec
       Paths_fp_course_haskell
   hs-source-dirs:

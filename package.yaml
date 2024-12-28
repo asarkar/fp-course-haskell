@@ -42,6 +42,8 @@ ghc-options:
 
 library:
   source-dirs: src
+  dependencies:
+    - containers
 
 tests:
   fp-course-test:

@@ -2,6 +2,39 @@ My solutions to the exercises from the Haskell Functional Programming course [fp
 
 [![](https://github.com/asarkar/fp-course-haskell/workflows/CI/badge.svg)](https://github.com/asarkar/fp-course-haskell/actions)
 
+## Progression
+
+The first step is to inspect the introduction modules.
+
+* [ExactlyOne](src/ExactlyOne.hs)
+* [Validation](src/Validation.hs)
+
+They contain examples of data structures and Haskell syntax. They do not contain
+exercises and exist to provide a cursory examination of Haskell syntax.
+
+After this, we recommend the following progression of modules:
+
+* [Optional](src/Optional.hs)
+* [List](src/List.hs)
+* [Functor](src/Functor.hs)
+* [Applicative](src/Applicative.hs)
+* [Monad](src/Monad.hs)
+* [FileIO](src/FileIO.hs)
+* [State](src/State.hs)
+* StateT
+* Extend
+* Comonad
+* Contravariant
+* Compose
+* Traversable
+* ListZipper
+* Parser *(see also Person for the parsing rules)*
+* MoreParser
+* JsonParser
+* Interactive
+* Anagrams
+* FastAnagrams
+* Cheque
 
 ## Running tests
 

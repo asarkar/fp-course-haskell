@@ -55,7 +55,7 @@ instance Monad Optional where
 -- | Binds a function on the reader ((->) t).
 --
 -- >>> ((*) =<< (+10)) 7
--- 119
+-- (7 + 10) * 7 = 119
 instance Monad ((->) t) where
   (=<<) :: (a -> (->) t b) -> (->) t a -> (->) t b
   f =<< g = \x -> f (g x) x
