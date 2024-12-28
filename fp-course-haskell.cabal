@@ -24,6 +24,7 @@ library
       ExactlyOne
       Functor
       List
+      Monad
       Optional
       Validation
   other-modules:
@@ -46,6 +47,7 @@ test-suite fp-course-test
       ApplicativeSpec
       FunctorSpec
       ListSpec
+      MonadSpec
       OptionalSpec
       Property
       SpecHook

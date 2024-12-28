@@ -1,6 +1,6 @@
 module OptionalSpec (spec) where
 
-import Optional (Optional (..), (<+>))
+import Optional (Optional (..))
 import qualified Optional as O
 import Test.Hspec
 
@@ -30,13 +30,13 @@ spec = do
 
   describe "<+>" $ do
     it "first Full" $
-      Full 8 <+> Empty `shouldBe` Full (8 :: Int)
+      Full 8 O.<+> Empty `shouldBe` Full (8 :: Int)
     it "both Full" $
-      Full 8 <+> Full 9 `shouldBe` Full (8 :: Int)
+      Full 8 O.<+> Full 9 `shouldBe` Full (8 :: Int)
     it "first Empty" $
-      Empty <+> Full 9 `shouldBe` Full (9 :: Int)
+      Empty O.<+> Full 9 `shouldBe` Full (9 :: Int)
     it "both empty" $
-      Empty <+> Empty `shouldBe` (Empty :: Optional Integer)
+      Empty O.<+> Empty `shouldBe` (Empty :: Optional Integer)
 
   describe "optional" $ do
     it "replaces full data constructor" $

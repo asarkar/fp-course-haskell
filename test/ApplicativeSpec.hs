@@ -1,6 +1,5 @@
 module ApplicativeSpec (spec) where
 
-import Applicative ()
 import qualified Applicative as A
 import ExactlyOne (ExactlyOne (..))
 import qualified Functor as F
@@ -16,13 +15,13 @@ spec = do
     prop "pure == ExactlyOne" $
       \x -> pure x `shouldBe` ExactlyOne (x :: Integer)
     it "Applying within ExactlyOne" $
-      ExactlyOne (+ 10) <*> ExactlyOne 8 `shouldBe` ExactlyOne (18 :: Int)
+      ExactlyOne (+ 10) A.<*> ExactlyOne 8 `shouldBe` ExactlyOne (18 :: Int)
 
   describe "List instance" $ do
     prop "pure" $
       \x -> pure x `shouldBe` (x :: Integer) :. Nil
     it "<*>" $
-      (+ 1) :. (* 2) :. Nil <*> L.listh [1, 2, 3] `shouldBe` L.listh [2 :: Int, 3, 4, 2, 4, 6]
+      (+ 1) :. (* 2) :. Nil A.<*> L.listh [1, 2, 3] `shouldBe` L.listh [2 :: Int, 3, 4, 2, 4, 6]
 
   describe "lift1" $ do
     it "ExactlyOne" $
@@ -36,23 +35,23 @@ spec = do
     prop "pure" $
       \x -> pure x `shouldBe` Full (x :: Integer)
     it "Full <*> Full" $
-      Full (+ 8) <*> Full 7 `shouldBe` Full (15 :: Int)
+      Full (+ 8) A.<*> Full 7 `shouldBe` Full (15 :: Int)
     it "Empty <*> Full" $
-      Empty <*> Full "tilt" `shouldBe` (Empty :: Optional Integer)
+      Empty A.<*> Full "tilt" `shouldBe` (Empty :: Optional Integer)
     it "Full <*> Empty" $
-      Full (+ 8) <*> Empty `shouldBe` (Empty :: Optional Int)
+      Full (+ 8) A.<*> Empty `shouldBe` (Empty :: Optional Int)
 
   describe "Function instance" $ do
     it "addition" $
-      ((+) <*> (+ 10)) 3 `shouldBe` (16 :: Int)
+      ((+) A.<*> (+ 10)) 3 `shouldBe` (16 :: Int)
     it "more addition" $
-      ((+) <*> (+ 5)) 3 `shouldBe` (11 :: Int)
+      ((+) A.<*> (+ 5)) 3 `shouldBe` (11 :: Int)
     it "even more addition" $
-      ((+) <*> (+ 5)) 1 `shouldBe` (7 :: Int)
+      ((+) A.<*> (+ 5)) 1 `shouldBe` (7 :: Int)
     it "addition and multiplication" $
-      ((*) <*> (+ 10)) 3 `shouldBe` (39 :: Int)
+      ((*) A.<*> (+ 10)) 3 `shouldBe` (39 :: Int)
     it "more addition and multiplcation" $
-      ((*) <*> (+ 2)) 3 `shouldBe` (15 :: Int)
+      ((*) A.<*> (+ 2)) 3 `shouldBe` (15 :: Int)
     prop "pure" $
       \x y -> pure x (y :: Integer) `shouldBe` (x :: Integer)
 

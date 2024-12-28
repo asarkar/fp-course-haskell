@@ -6,8 +6,6 @@ import Test.Hspec.QuickCheck
 import Validation (Validation (..))
 import qualified Validation as V
 
--- f :: (Integral a) => a -> Validation a
-
 spec :: Spec
 spec = do
   describe "isError" $ do
