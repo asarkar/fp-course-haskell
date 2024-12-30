@@ -23,7 +23,7 @@ After this, we recommend the following progression of modules:
 * [State](src/State.hs)
 * [StateT](src/StateT.hs)
 * [Extend](src/Extend.hs)
-* Comonad
+* [Comonad](src/Comonad.hs)
 * Contravariant
 * Compose
 * Traversable
