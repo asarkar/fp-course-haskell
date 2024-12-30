@@ -22,7 +22,7 @@ After this, we recommend the following progression of modules:
 * [FileIO](src/FileIO.hs)
 * [State](src/State.hs)
 * [StateT](src/StateT.hs)
-* Extend
+* [Extend](src/Extend.hs)
 * Comonad
 * Contravariant
 * Compose

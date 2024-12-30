@@ -22,6 +22,7 @@ library
       Applicative
       Core
       ExactlyOne
+      Extend
       FileIO
       Functor
       List
@@ -49,6 +50,7 @@ test-suite fp-course-test
   main-is: Spec.hs
   other-modules:
       ApplicativeSpec
+      ExtendSpec
       FunctorSpec
       ListSpec
       MonadSpec
