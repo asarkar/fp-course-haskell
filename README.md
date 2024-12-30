@@ -24,7 +24,7 @@ After this, we recommend the following progression of modules:
 * [StateT](src/StateT.hs)
 * [Extend](src/Extend.hs)
 * [Comonad](src/Comonad.hs)
-* Contravariant
+* [Contravariant](src/Contravariant.hs)
 * Compose
 * Traversable
 * ListZipper

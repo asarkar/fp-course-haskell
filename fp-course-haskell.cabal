@@ -21,6 +21,7 @@ library
   exposed-modules:
       Applicative
       Comonad
+      Contravariant
       Core
       ExactlyOne
       Extend
@@ -52,6 +53,7 @@ test-suite fp-course-test
   other-modules:
       ApplicativeSpec
       ComonadSpec
+      ContravariantSpec
       ExtendSpec
       FunctorSpec
       ListSpec
