@@ -28,6 +28,7 @@ library
       Monad
       Optional
       State
+      StateT
       Validation
   other-modules:
       Paths_fp_course_haskell
@@ -37,7 +38,7 @@ library
       TupleSections
       DerivingStrategies
       InstanceSigs
-  ghc-options: -Werror -Weverything -Wno-missing-import-lists -Wno-missed-specializations -Wno-all-missed-specializations -Wno-missing-local-signatures -Wno-monomorphism-restriction -Wno-missing-safe-haskell-mode -Wno-safe -Wno-unsafe -Wno-implicit-prelude -Wno-prepositive-qualified-module -Wno-missing-kind-signatures -Wno-unused-top-binds -Wno-missing-export-lists -Wno-missing-role-annotations
+  ghc-options: -Werror -Weverything -Wno-missing-import-lists -Wno-missed-specializations -Wno-all-missed-specializations -Wno-missing-local-signatures -Wno-monomorphism-restriction -Wno-missing-safe-haskell-mode -Wno-safe -Wno-unsafe -Wno-implicit-prelude -Wno-prepositive-qualified-module -Wno-missing-kind-signatures -Wno-unused-top-binds -Wno-missing-export-lists -Wno-missing-role-annotations -Wno-type-defaults
   build-depends:
       base >=4.7 && <5
     , containers
@@ -55,6 +56,7 @@ test-suite fp-course-test
       Property
       SpecHook
       StateSpec
+      StateTSpec
       ValidationSpec
       Paths_fp_course_haskell
   hs-source-dirs:
@@ -63,7 +65,7 @@ test-suite fp-course-test
       TupleSections
       DerivingStrategies
       InstanceSigs
-  ghc-options: -Werror -Weverything -Wno-missing-import-lists -Wno-missed-specializations -Wno-all-missed-specializations -Wno-missing-local-signatures -Wno-monomorphism-restriction -Wno-missing-safe-haskell-mode -Wno-safe -Wno-unsafe -Wno-implicit-prelude -Wno-prepositive-qualified-module -Wno-missing-kind-signatures -Wno-unused-top-binds -Wno-missing-export-lists -Wno-missing-role-annotations
+  ghc-options: -Werror -Weverything -Wno-missing-import-lists -Wno-missed-specializations -Wno-all-missed-specializations -Wno-missing-local-signatures -Wno-monomorphism-restriction -Wno-missing-safe-haskell-mode -Wno-safe -Wno-unsafe -Wno-implicit-prelude -Wno-prepositive-qualified-module -Wno-missing-kind-signatures -Wno-unused-top-binds -Wno-missing-export-lists -Wno-missing-role-annotations -Wno-type-defaults
   build-depends:
       QuickCheck
     , base >=4.7 && <5

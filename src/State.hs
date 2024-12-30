@@ -151,12 +151,9 @@ firstRepeat xs = eval (findM contains xs) S.empty
 contains :: (Ord a) => a -> State (Set a) Bool
 contains x = do
   seen <- get
-  if S.member x seen
-    then
-      A.pure True
-    else do
-      put (S.insert x seen)
-      A.pure False
+  let dup = S.member x seen
+  put $ S.insert x seen
+  A.pure dup
 
 -- | Remove all duplicate elements in a `List`.
 -- /Tip:/ Use `filtering` and `State` with a @Data.Set#Set@.

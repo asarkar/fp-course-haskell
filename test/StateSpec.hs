@@ -27,37 +27,37 @@ spec = do
     S.eval (State f) s `shouldBe` fst (S.runState (State f) s)
 
   it "get" $
-    S.runState S.get 0 `shouldBe` (0 :: Int, 0)
+    S.runState S.get 0 `shouldBe` (0, 0)
 
   it "put" $
-    S.runState (S.put 1) 0 `shouldBe` ((), 1 :: Int)
+    S.runState (S.put 1) 0 `shouldBe` ((), 1)
 
   it "(<$>)" $
-    S.runState ((+ 1) F.<$> State (\s -> (9, s * 2))) 3 `shouldBe` ((10, 6) :: (Int, Int))
+    S.runState ((+ 1) F.<$> State (\s -> (9, s * 2))) 3 `shouldBe` (10, 6)
 
   describe "Applicative" $ do
     it "pure" $ S.runState (A.pure 2) 0 `shouldBe` ((2, 0) :: (Int, Int))
-    it "<*>" $ S.runState (A.pure (+ 1) A.<*> A.pure 0) 0 `shouldBe` ((1, 0) :: (Int, Int))
+    it "<*>" $ S.runState (A.pure (+ 1) A.<*> A.pure 0) 0 `shouldBe` (1, 0)
     it "complicated <*>" $
       let state = State (\s -> ((+ 3), s ++ ["apple"])) A.<*> State (\s -> (7, s ++ ["banana"]))
-       in S.runState state [] `shouldBe` (10 :: Int, ["apple", "banana"])
+       in S.runState state [] `shouldBe` (10, ["apple", "banana"])
 
   describe "Monad" $ do
     it "(=<<)" $
-      S.runState (const (S.put 2) M.=<< S.put 1) 0 `shouldBe` ((), 2 :: Int)
+      S.runState (const (S.put 2) M.=<< S.put 1) 0 `shouldBe` ((), 2)
     it "correctly produces new state and value" $
-      S.runState ((\a -> State (\s -> (a + s, 10 + s))) M.=<< State (\s -> (s * 2, 4 + s))) 2 `shouldBe` ((10, 16) :: (Int, Int))
+      S.runState ((\a -> State (\s -> (a + s, 10 + s))) M.=<< State (\s -> (s * 2, 4 + s))) 2 `shouldBe` (10, 16)
     it "(>>=)" $
       let modify f = State (\s -> ((), f s))
-       in S.runState (modify (+ 1) M.>>= \() -> modify (* 2)) 7 `shouldBe` ((), 16 :: Int)
+       in S.runState (modify (+ 1) M.>>= \() -> modify (* 2)) 7 `shouldBe` ((), 16)
 
   describe "findM" $ do
     it "find 'c' in 'a'..'h'" $
       let p x = (\s -> const (A.pure (x == 'c')) M.=<< S.put (1 + s)) M.=<< S.get
-       in S.runState (S.findM p $ L.listh ['a' .. 'h']) 0 `shouldBe` (Full 'c', 3 :: Int)
+       in S.runState (S.findM p $ L.listh ['a' .. 'h']) 0 `shouldBe` (Full 'c', 3)
     it "find 'i' in 'a'..'h'" $
       let p x = (\s -> const (A.pure (x == 'i')) M.=<< S.put (1 + s)) M.=<< S.get
-       in S.runState (S.findM p $ L.listh ['a' .. 'h']) 0 `shouldBe` (Empty, 8 :: Int)
+       in S.runState (S.findM p $ L.listh ['a' .. 'h']) 0 `shouldBe` (Empty, 8)
 
   describe "firstRepeat" $ do
     it "'x' is the only repeat" $

@@ -26,9 +26,9 @@ spec = do
 
   describe "mapValidation" $ do
     it "errors unchanged" $
-      V.mapValidation (+ 10) (Error "message") `shouldBe` (Error "message" :: Validation Int)
+      V.mapValidation (+ 10) (Error "message") `shouldBe` Error "message"
     it "values changed" $
-      V.mapValidation (+ 10) (Value 7) `shouldBe` Value (17 :: Int)
+      V.mapValidation (+ 10) (Value 7) `shouldBe` Value 17
     prop "map with id causes no change" $
       \x -> V.mapValidation id x `shouldBe` (x :: Validation Integer)
 
@@ -36,11 +36,11 @@ spec = do
     let f n = if even n then Value (n + 10) else Error "odd"
 
     it "error unchanged" $
-      V.bindValidation f (Error "message") `shouldBe` (Error "message" :: Validation Int)
+      V.bindValidation f (Error "message") `shouldBe` Error "message"
     it "odd value" $
-      V.bindValidation f (Value 7) `shouldBe` (Error "odd" :: Validation Int)
+      V.bindValidation f (Value 7) `shouldBe` Error "odd"
     it "even value" $
-      V.bindValidation f (Value 8) `shouldBe` Value (18 :: Int)
+      V.bindValidation f (Value 8) `shouldBe` Value 18
     prop "bind with Value causes no change" $
       \x -> V.bindValidation Value x `shouldBe` (x :: Validation Integer)
 
@@ -56,6 +56,6 @@ spec = do
     it "unwraps errors" $
       V.errorOr (Error "message") "q" `shouldBe` "message"
     it "falls through for values" $
-      V.errorOr (Value (7 :: Integer)) "q" `shouldBe` "q"
+      V.errorOr (Value 7) "q" `shouldBe` "q"
     prop "isError or errorOr falls through" $
       \x s -> V.isError (x :: Validation Integer) || V.errorOr x s == s `shouldBe` True

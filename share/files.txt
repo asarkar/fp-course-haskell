@@ -1,3 +1,0 @@
-share/a.txt
-share/b.txt
-share/c.txt

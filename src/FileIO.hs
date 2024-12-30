@@ -58,7 +58,7 @@ And c.txt, containing:
   the contents of c
 
 To test this module, load ghci in the root of the project directory, and do
-    >> :main "share/files.txt"
+    >> :main "data/files.txt"
 
 Example output:
 
@@ -69,14 +69,14 @@ Loading ...
 [ 1 of 28] Compiling (etc...
 ...
 Ok, modules loaded: Course, etc...
->> :main "share/files.txt"
-============ share/a.txt
+>> :main "data/files.txt"
+============ data/a.txt
 the contents of a
 
-============ share/b.txt
+============ data/b.txt
 the contents of b
 
-============ share/c.txt
+============ data/c.txt
 the contents of c
 
 -}
@@ -136,7 +136,7 @@ main :: IO ()
 main =
   L.getArgs >>= \case
     filename :. Nil -> run filename
-    _ -> L.putStrLn "usage: stack runhaskell src/FileIO.hs share/files.txt"
+    _ -> L.putStrLn "usage: stack runhaskell src/FileIO.hs data/files.txt"
 
 ----
 

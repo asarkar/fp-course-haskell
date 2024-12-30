@@ -21,7 +21,7 @@ After this, we recommend the following progression of modules:
 * [Monad](src/Monad.hs)
 * [FileIO](src/FileIO.hs)
 * [State](src/State.hs)
-* StateT
+* [StateT](src/StateT.hs)
 * Extend
 * Comonad
 * Contravariant
@@ -59,7 +59,7 @@ To run a _specific test_:
 
 To run a file containing a `main` method:
 ```
-stack runhaskell app/Main.hs
+stack runhaskell <path/to/file> <arg1> <arg2>
 ```
 
 To run an executable listed in `package.yaml`:

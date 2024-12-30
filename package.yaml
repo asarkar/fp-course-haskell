@@ -39,6 +39,7 @@ ghc-options:
 - -Wno-unused-top-binds
 - -Wno-missing-export-lists
 - -Wno-missing-role-annotations
+- -Wno-type-defaults
 
 library:
   source-dirs: src
