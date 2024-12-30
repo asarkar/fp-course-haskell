@@ -25,7 +25,7 @@ After this, we recommend the following progression of modules:
 * [Extend](src/Extend.hs)
 * [Comonad](src/Comonad.hs)
 * [Contravariant](src/Contravariant.hs)
-* Compose
+* [Compose](src/Compose.hs)
 * Traversable
 * ListZipper
 * Parser *(see also Person for the parsing rules)*

@@ -6,7 +6,6 @@ import Test.Hspec
 
 spec :: Spec
 spec = do
-  describe "Comonad" $ do
-    it "ExactlyOne" $ C.copure (ExactlyOne 7) `shouldBe` 7
-    it "<$$>" $
-      ((+ 10) C.<$$> ExactlyOne 7) `shouldBe` ExactlyOne 17
+  it "ExactlyOne" $ C.copure (ExactlyOne 7) `shouldBe` 7
+  it "<$$>" $
+    ((+ 10) C.<$$> ExactlyOne 7) `shouldBe` ExactlyOne 17
