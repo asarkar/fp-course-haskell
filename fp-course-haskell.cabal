@@ -29,6 +29,7 @@ library
       FileIO
       Functor
       List
+      ListZipper
       Monad
       Optional
       State
@@ -60,6 +61,7 @@ test-suite fp-course-test
       ExtendSpec
       FunctorSpec
       ListSpec
+      ListZipperSpec
       MonadSpec
       OptionalSpec
       Property

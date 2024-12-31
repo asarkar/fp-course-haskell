@@ -38,12 +38,12 @@ spec = do
 
   describe "composeTest" $ do
     let fmap2 f = ((f <$>) <$>)
-    let fullListOfInts = Full (L.listh [1, 2, 3])
-    let listOfExactlyOnes = L.listh [ExactlyOne 1, ExactlyOne 2, ExactlyOne 3]
-    let cfli = Compose fullListOfInts
-    let traversedCfli = Compose $ (* 2) `fmap2` fullListOfInts
-    let clei = Compose listOfExactlyOnes
-    let traversedClei = Compose $ (* 2) `fmap2` listOfExactlyOnes
+        fullListOfInts = Full (L.listh [1, 2, 3])
+        listOfExactlyOnes = L.listh [ExactlyOne 1, ExactlyOne 2, ExactlyOne 3]
+        cfli = Compose fullListOfInts
+        traversedCfli = Compose $ (* 2) `fmap2` fullListOfInts
+        clei = Compose listOfExactlyOnes
+        traversedClei = Compose $ (* 2) `fmap2` listOfExactlyOnes
 
     it "traverse on Compose Optional List Int" $
       T.traverse (\a -> ExactlyOne (a * 2)) cfli `shouldBe` ExactlyOne traversedCfli
@@ -62,15 +62,15 @@ spec = do
     describe "productTraversableTest" $ do
       it "traverse on Product Optional List Int" $ do
         let pdt = Product (Full 4) listOfInts
-        let productTimesTwo = Product (Full 8) ((* 2) F.<$> listOfInts)
+            productTimesTwo = Product (Full 8) ((* 2) F.<$> listOfInts)
         T.traverse (\a -> ExactlyOne (a * 2)) pdt `shouldBe` ExactlyOne productTimesTwo
 
   describe "coProductTest" $ do
     let listOfInts = L.listh [1, 2, 3]
-    let inL = InL (Full 4) :: Coproduct Optional List Int
-    let inLTimesTwo = InL (Full 8) :: Coproduct Optional List Int
-    let inR = InR listOfInts :: Coproduct Optional List Int
-    let inRTimesTwo = InR ((* 2) F.<$> listOfInts) :: Coproduct Optional List Int
+        inL = InL (Full 4) :: Coproduct Optional List Int
+        inLTimesTwo = InL (Full 8) :: Coproduct Optional List Int
+        inR = InR listOfInts :: Coproduct Optional List Int
+        inRTimesTwo = InR ((* 2) F.<$> listOfInts) :: Coproduct Optional List Int
 
     describe "coProductFunctorTest" $ do
       it "fmap on InL Optional Int" $

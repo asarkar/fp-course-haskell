@@ -27,7 +27,7 @@ After this, we recommend the following progression of modules:
 * [Contravariant](src/Contravariant.hs)
 * [Compose](src/Compose.hs)
 * [Traversable](src/Traversable.hs)
-* ListZipper
+* [ListZipper](src/ListZipper.hs)
 * Parser *(see also Person for the parsing rules)*
 * MoreParser
 * JsonParser
