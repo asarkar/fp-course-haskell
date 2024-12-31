@@ -33,6 +33,7 @@ library
       Optional
       State
       StateT
+      Traversable
       Validation
   other-modules:
       Paths_fp_course_haskell
@@ -65,6 +66,7 @@ test-suite fp-course-test
       SpecHook
       StateSpec
       StateTSpec
+      TraversableSpec
       ValidationSpec
       Paths_fp_course_haskell
   hs-source-dirs:

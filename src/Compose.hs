@@ -13,6 +13,13 @@ import Monad (Monad, (=<<))
 
 -- Exactly one of these exercises will not be possible to achieve. Determine which.
 
+{-
+The way to think about Compose is that it has two types, outer f and inner g,
+and the operations that're possible on these types help us implement the
+instances of Compose for various type classes.
+For example, if f is a Functor, we can fmap over it.
+-}
+
 newtype Compose f g a
   = Compose (f (g a))
   deriving stock (Show, Eq)
@@ -22,6 +29,7 @@ instance
   (Functor f, Functor g) =>
   Functor (Compose f g)
   where
+  (<$>) :: (a -> b) -> Compose f g a -> Compose f g b
   f <$> Compose g = Compose ((f F.<$>) F.<$> g)
 
 instance

@@ -1,7 +1,5 @@
 module ComposeSpec (spec) where
 
--- import qualified Compose as C
-
 import qualified Applicative as A
 import Compose (Compose (..))
 import Contravariant (Predicate (..))
