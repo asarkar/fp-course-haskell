@@ -32,6 +32,8 @@ library
       ListZipper
       Monad
       Optional
+      Parser
+      Person
       State
       StateT
       Traversable
@@ -64,6 +66,7 @@ test-suite fp-course-test
       ListZipperSpec
       MonadSpec
       OptionalSpec
+      ParserSpec
       Property
       SpecHook
       StateSpec

@@ -28,7 +28,7 @@ After this, we recommend the following progression of modules:
 * [Compose](src/Compose.hs)
 * [Traversable](src/Traversable.hs)
 * [ListZipper](src/ListZipper.hs)
-* Parser *(see also Person for the parsing rules)*
+* [Parser](src/Parser.hs) *(see also [Person](src/Person.hs) for the parsing rules)*
 * MoreParser
 * JsonParser
 * Interactive
