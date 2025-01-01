@@ -29,8 +29,9 @@ After this, we recommend the following progression of modules:
 * [Traversable](src/Traversable.hs)
 * [ListZipper](src/ListZipper.hs)
 * [Parser](src/Parser.hs) *(see also [Person](src/Person.hs) for the parsing rules)*
-* MoreParser
+* [MoreParser](src/MoreParser.hs)
 * JsonParser
+* Alternative
 * Interactive
 * Anagrams
 * FastAnagrams
