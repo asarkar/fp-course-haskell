@@ -2,20 +2,13 @@
 
 module ParserSpec (spec) where
 
--- import qualified Applicative as A
--- import ExactlyOne (ExactlyOne (..))
--- import qualified Functor as F
--- import List (List (..))
--- import qualified List as L
--- import Optional (Optional (..))
-
 import qualified Applicative as A
 import qualified Data.Char as Ch
 import qualified Functor as F
 import List (List (..))
 import qualified Monad as M
 import Optional (Optional (..))
-import Parser (ParseResult (..), Parser, (|||))
+import Parser (ParseResult (..), Parser (..), (|||))
 import qualified Parser as P
 import Person
 import Test.Hspec

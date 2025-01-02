@@ -28,6 +28,8 @@ library
       Extend
       FileIO
       Functor
+      JsonParser
+      JsonValue
       List
       ListZipper
       Monad
@@ -63,6 +65,7 @@ test-suite fp-course-test
       ContravariantSpec
       ExtendSpec
       FunctorSpec
+      JsonParserSpec
       ListSpec
       ListZipperSpec
       MonadSpec

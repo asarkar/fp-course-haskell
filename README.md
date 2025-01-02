@@ -30,7 +30,7 @@ After this, we recommend the following progression of modules:
 * [ListZipper](src/ListZipper.hs)
 * [Parser](src/Parser.hs) *(see also [Person](src/Person.hs) for the parsing rules)*
 * [MoreParser](src/MoreParser.hs)
-* JsonParser
+* [JsonParser](src/JsonParser.hs)
 * Alternative
 * Interactive
 * Anagrams

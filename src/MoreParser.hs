@@ -221,7 +221,7 @@ hex :: Parser Char
 hex = Ch.chr . O.fullOr (-1) . toI F.<$> xs
   where
     xs = P.thisMany 4 (P.satisfy Ch.isHexDigit)
-    toI ys = L.read ("0x" L.++ ys)
+    toI ys = L.readHex ys :: Optional Int
 
 -- | Write a function that parses the character 'u' followed by 4 hex digits and return the character value.
 --
@@ -290,7 +290,7 @@ sepby = (option Nil .) . sepby1
 -- >>> isErrorResult (parse eof "abc")
 -- True
 eof :: Parser ()
-eof = P.P $ \case
+eof = P $ \case
   (x :. _) -> ExpectedEof (L.show' x)
   Nil -> Result "" ()
 

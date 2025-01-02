@@ -597,6 +597,7 @@ readHex ::
 readHex =
   O.mapOptional fst . readHexs
 
+-- Returns the parsed number and the remaining input.
 readFloats ::
   (RealFrac a) =>
   Chars ->
