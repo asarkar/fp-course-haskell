@@ -2,13 +2,6 @@
 
 module JsonParserSpec (spec) where
 
--- import qualified Applicative as A
--- import qualified Data.Char as Ch
--- import qualified Functor as F
-
--- import qualified Monad as M
--- import Optional (Optional (..))
-
 import Data.Ratio ((%))
 import qualified JsonParser as JP
 import JsonValue
