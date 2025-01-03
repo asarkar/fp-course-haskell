@@ -32,7 +32,7 @@ class (Functor t) => Traversable t where
 
 instance Traversable List where
   traverse :: (Applicative k) => (a -> k b) -> List a -> k (List b)
-  traverse f = L.foldRight (\a b -> (:.) F.<$> f a A.<*> b) (A.pure Nil)
+  traverse f = L.foldRight (A.lift2 (:.) . f) (A.pure Nil)
 
 instance Traversable ExactlyOne where
   traverse :: (Applicative k) => (a -> k b) -> ExactlyOne a -> k (ExactlyOne b)

@@ -32,10 +32,10 @@ After this, we recommend the following progression of modules:
 * [MoreParser](src/MoreParser.hs)
 * [JsonParser](src/JsonParser.hs)
 * [Alternative](src/Alternative.hs)
-* Interactive
-* Anagrams
-* FastAnagrams
-* Cheque
+* [Interactive](src/Interactive.hs)
+* [Anagrams](src/Anagrams.hs)
+* [FastAnagrams](src/FastAnagrams.hs)
+* [Cheque](src/Cheque.hs)
 
 ## Running tests
 

@@ -20,15 +20,19 @@ extra-source-files:
 library
   exposed-modules:
       Alternative
+      Anagrams
       Applicative
+      Cheque
       Comonad
       Compose
       Contravariant
       Core
       ExactlyOne
       Extend
+      FastAnagrams
       FileIO
       Functor
+      Interactive
       JsonParser
       JsonValue
       List
@@ -62,6 +66,7 @@ test-suite fp-course-test
   other-modules:
       AlternativeSpec
       ApplicativeSpec
+      ChequeSpec
       ComonadSpec
       ComposeSpec
       ContravariantSpec
