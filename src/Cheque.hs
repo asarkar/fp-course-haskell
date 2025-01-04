@@ -352,29 +352,14 @@ dollars xs = fmt d "dollar" L.++ " and " L.++ fmt c "cent"
 
 words :: Chars -> Chars
 words xs
-  | n <= 3 = lessThanThou ys
+  | (n + k) <= 3 = lessThanThou ys
   | otherwise = L.unwords (wl :. w :. (if L.isEmpty wr then Nil else wr :. Nil))
   where
     ys = lstrip xs
-    n = L.length ys
-    (k, m) = n `divMod` 3
-    x = if m == 0 then k - 1 else k
-    (l, r) = splitAt (n - 3 * x) ys
-    w = elemAt x illion
+    ((n, l), (k, r)) = split ys
+    w = elemAt (k `div` 3) illion
     wl = words l
     wr = words r
-
-splitAt :: Int -> List a -> (List a, List a)
-splitAt n xs = (L.take n xs, L.drop n xs)
-
-elemAt :: Int -> List a -> a
-elemAt n xs =
-  case L.drop n xs of
-    x :. _ -> x
-    _ -> error "out of range"
-
-lstrip :: Chars -> Chars
-lstrip = L.dropWhile (== '0')
 
 lessThanThou :: Chars -> Chars
 lessThanThou xs =
@@ -388,9 +373,9 @@ lessThanThou xs =
     _ -> L.unwords (elemAt (i - 1) units :. "hundred" :. "and" :. lessThanThou r :. Nil)
   where
     ys = lstrip xs
-    (l, r) = splitAt 1 ys
-    i = Core.digitToInt (elemAt 0 l)
-    j = Core.digitToInt (elemAt 0 r)
+    (l, r) = uncons ys
+    i = Core.digitToInt l
+    j = Core.digitToInt (head r)
 
 parseDecimal :: Chars -> (Chars, Chars)
 parseDecimal xs = (whole, decimal)
@@ -399,3 +384,46 @@ parseDecimal xs = (whole, decimal)
     digits = L.filter isDigit
     whole = digits ys
     decimal = L.take 2 (digits zs L.++ "00")
+
+type Group a = (Int, List a)
+
+{-
+Split into (prefix, suffix) such that the length
+of the suffix is the longest multiple of three.
+
+Examples:
+1001 --> (1, 001)
+999999 --> (999, 999)
+1000001 --> (1, 000001)
+-}
+split :: List a -> (Group a, Group a)
+split = L.foldRight f ((0, Nil), (0, Nil))
+  where
+    f x ((k, xs), acc@(n, ys)) =
+      if k == 3
+        then ((1, x :. Nil), (n + 3, xs L.++ ys))
+        else ((k + 1, x :. xs), acc)
+
+-- List helper functions.
+
+lstrip :: Chars -> Chars
+lstrip = L.dropWhile (== '0')
+
+{-
+The following are partial functions
+that throw an error if the list doesn't
+contain the required number of elements.
+-}
+
+elemAt :: Int -> List a -> a
+elemAt n xs =
+  case L.drop n xs of
+    x :. _ -> x
+    _ -> error "out of range"
+
+head :: List a -> a
+head = elemAt 0
+
+uncons :: List a -> (a, List a)
+uncons Nil = error "empty list"
+uncons (x :. xs) = (x, xs)

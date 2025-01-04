@@ -1,6 +1,9 @@
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
+{-# OPTIONS -Wno-x-partial #-}
+{-# OPTIONS -Wno-incomplete-uni-patterns #-}
+
 module ChequeSpec (spec) where
 
 import qualified Cheque as Ch
@@ -19,6 +22,62 @@ zipWithIndices xs = zip (L.hlist xs) [0 ..]
 
 spec :: Spec
 spec = do
+  describe "lstrip" $ do
+    it "no-op on an empty string" $
+      Ch.lstrip "" `shouldBe` ""
+    it "strips a string that only contains zeros" $
+      Ch.lstrip "000" `shouldBe` ""
+    it "doesn't strip intermediate zeros" $
+      Ch.lstrip "a00b" `shouldBe` "a00b"
+    it "doesn't strip zeros at the right" $
+      Ch.lstrip "ab0" `shouldBe` "ab0"
+
+  describe "elemAt" $ do
+    prop "can't get an element from an empty list" $
+      -- We can generate multiple arguments:
+      -- \(NonNegative (n :: Int)) (xs :: List Integer) -> do
+      \(NonNegative (n :: Int)) ->
+        E.evaluate (Ch.elemAt n (Nil :: List Integer)) `shouldThrow` anyErrorCall
+    prop "gets an element from a non-empty list" $
+      \(NonEmpty (xs :: [Int])) ->
+        -- n is dependent on (length xs), so needs
+        -- to be generated separately.
+        forAll (chooseInt (0, L'.length xs - 1)) $ \n ->
+          Ch.elemAt n (L.listh xs) `shouldBe` xs L'.!! n
+
+  describe "head" $ do
+    prop "can't get the head an empty list" $
+      E.evaluate (Ch.head (Nil :: List Integer)) `shouldThrow` anyErrorCall
+
+    prop "gets the head of a non-empty list" $
+      \(NonEmpty (xs :: [Int])) ->
+        Ch.head (L.listh xs) `shouldBe` L'.head xs
+
+  describe "uncons" $ do
+    prop "can't decompose an empty list" $
+      E.evaluate (Ch.uncons (Nil :: List Integer)) `shouldThrow` anyErrorCall
+
+    prop "decomposes a non-empty list" $
+      \(NonEmpty (xs :: [Int])) -> do
+        let (y, ys) = Ch.uncons (L.listh xs)
+            Just (z, zs) = L'.uncons xs
+
+        (y, L.hlist ys) `shouldBe` (z, zs)
+
+  describe "split" $ do
+    let xs =
+          [ ("", ((0, ""), (0, ""))),
+            ("0", ((1, "0"), (0, ""))),
+            ("101", ((3, "101"), (0, ""))),
+            ("1001", ((1, "1"), (3, "001"))),
+            ("999999", ((3, "999"), (3, "999"))),
+            ("1000001", ((1, "1"), (6, "000001")))
+          ]
+
+    CM.forM_ xs $ \(x, expected) -> do
+      it ("splits \"" ++ x ++ "\"") $
+        Ch.split (L.listh x) `shouldBe` expected
+
   describe "parseDecimal" $ do
     let xs =
           [ ("0", ("0", "00")),
@@ -40,39 +99,6 @@ spec = do
     CM.forM_ xs $ \(x, expected) -> do
       it ("parses \"" ++ x ++ "\"") $
         Ch.parseDecimal (L.listh x) `shouldBe` expected
-
-  describe "splitAt" $ do
-    prop "splits empty list into two empty lists" $
-      \(NonNegative (n :: Int)) ->
-        Ch.splitAt n (Nil :: List Integer) `shouldBe` (Nil, Nil)
-    it "splits singleton list -- index 0" $
-      Ch.splitAt 0 (1 :. Nil) `shouldBe` (Nil, 1 :. Nil)
-    prop "splits singleton list -- positive index" $
-      \(Positive (n :: Int)) ->
-        Ch.splitAt n (1 :. Nil) `shouldBe` (1 :. Nil, Nil)
-    prop "splits any list -- any index" $
-      \(NonNegative (n :: Int)) (xs :: List Integer) -> do
-        let (ys, zs) = L'.splitAt n (L.hlist xs)
-        Ch.splitAt n xs `shouldBe` (L.listh ys, L.listh zs)
-
-  describe "elemAt" $ do
-    prop "can't get an element from an empty list" $
-      \(NonNegative (n :: Int)) ->
-        E.evaluate (Ch.elemAt n (Nil :: List Integer)) `shouldThrow` anyErrorCall
-    prop "gets an element -- any list -- any index" $
-      \(NonEmpty (xs :: [Int])) ->
-        forAll (chooseInt (0, L'.length xs - 1)) $ \n ->
-          Ch.elemAt n (L.listh xs) `shouldBe` xs L'.!! n
-
-  describe "lstrip" $ do
-    it "no-op on an empty string" $
-      Ch.lstrip "" `shouldBe` ""
-    it "strips a string that only contains zeros" $
-      Ch.lstrip "000" `shouldBe` ""
-    it "doesn't strip intermediate zeros" $
-      Ch.lstrip "a00b" `shouldBe` "a00b"
-    it "doesn't strip zeros at the right" $
-      Ch.lstrip "ab0" `shouldBe` "ab0"
 
   describe "lessThanThou" $ do
     CM.forM_ (zipWithIndices Ch.units) $ \(x, i) -> do
